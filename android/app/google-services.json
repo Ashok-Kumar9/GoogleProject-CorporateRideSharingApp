@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "535681858178",
+    "project_id": "corporate-ride-sharing-6a0ac",
+    "storage_bucket": "corporate-ride-sharing-6a0ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535681858178:android:8a518c9f27884f94b3129b",
+        "android_client_info": {
+          "package_name": "com.example.corporate_ride_sharing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "535681858178-n4i2prsbmf6v7h0bhq46bhn5kssesbvg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtIQs5zxF0InETBwDjhFri9qRkPetBTH4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "535681858178-n4i2prsbmf6v7h0bhq46bhn5kssesbvg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

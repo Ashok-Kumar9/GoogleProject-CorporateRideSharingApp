@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 class ColorShades {
 
   // App Colors
-  static const Color backGroundBlack = Color.fromRGBO(27, 27, 27, 1);
-  static const Color backGroundGrey = Color.fromRGBO(43, 43, 43, 1);
+  static const Color backGroundBlack = Color(0xFF212121);
+  static const Color backGroundGrey = Color(0xFF2B2B2B);
   static const Color neon = Color(0xff426bff);
   static const Color grey = Colors.grey;
   static const Color white = Color(0xffffffff);
-
 
 /*-----------------------------------------------------------------------------------*/
 
@@ -91,7 +90,6 @@ class ColorShades {
   // tickets progress bar
 
   static const Color sapGreen = Color(0xff497E2B);
-  static const Color darkCharcoal = Color(0xff2D2D33);
   static const Color goldenBrown = Color(0xff876318);
   static const Color lotusDark = Color(0xff7B373A);
   static const Color sapGreenlight = Color(0xff4E9335);

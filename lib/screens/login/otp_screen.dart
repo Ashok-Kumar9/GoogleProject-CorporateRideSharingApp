@@ -1,7 +1,6 @@
 import 'package:corporate_ride_sharing/components/animation_dialog.dart';
 import 'package:corporate_ride_sharing/components/custom_button.dart';
 import 'package:corporate_ride_sharing/components/reusable_widgets.dart';
-import 'package:corporate_ride_sharing/screens/home/home_screen.dart';
 import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
 import 'package:corporate_ride_sharing/utils/style.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -37,10 +36,8 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
     _animationController = AnimationController(vsync: this)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
-              (route) => false);
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/role_selection', (route) => false);
         }
       });
 

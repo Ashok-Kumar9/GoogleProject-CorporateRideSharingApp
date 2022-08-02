@@ -24,7 +24,7 @@ animationDialog(BuildContext context, {required AnimationController animationCon
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Lottie.asset(
-                    "assets/animation/login_success.json",
+                    "assets/animations/login_success.json",
                     height: screenHeight * 0.25,
                     controller: animationController,
                     onLoaded: (composition) {

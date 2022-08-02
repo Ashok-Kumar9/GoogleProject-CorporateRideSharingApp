@@ -16,6 +16,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            onPressed: () async {
+              Navigator.of(context).pushNamed('/role_selection');
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Center(

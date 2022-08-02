@@ -9,7 +9,6 @@ class ColorShades {
   static const Color grey = Colors.grey;
   static const Color white = Color(0xffffffff);
 
-
 /*-----------------------------------------------------------------------------------*/
 
   static const Color lightGrey = Color.fromRGBO(117, 117, 117, 1);
@@ -91,7 +90,6 @@ class ColorShades {
   // tickets progress bar
 
   static const Color sapGreen = Color(0xff497E2B);
-  static const Color darkCharcoal = Color(0xff2D2D33);
   static const Color goldenBrown = Color(0xff876318);
   static const Color lotusDark = Color(0xff7B373A);
   static const Color sapGreenlight = Color(0xff4E9335);

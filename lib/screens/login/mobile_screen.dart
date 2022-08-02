@@ -1,11 +1,8 @@
 import 'package:android_sms_retriever/android_sms_retriever.dart';
 import 'package:corporate_ride_sharing/components/custom_button.dart';
-import 'package:corporate_ride_sharing/screens/login/otp_screen.dart';
 import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
 import 'package:corporate_ride_sharing/utils/style.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class MobileScreen extends StatefulWidget {
@@ -136,7 +133,8 @@ class _MobileScreenState extends State<MobileScreen> {
                     final regExp = RegExp(r"^[1-9]\d{9}$");
                     if (regExp.hasMatch(_phoneController.text)) {
                       SharedPrefs().phoneNumber = _phoneController.text;
-                      Navigator.pushNamedAndRemoveUntil (context, '/otp', (route) => false);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/otp', (route) => false);
                     } else {
                       _phoneController.clear();
                       Fluttertoast.showToast(msg: "Please enter valid number");

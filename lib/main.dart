@@ -1,6 +1,7 @@
 import 'package:corporate_ride_sharing/screens/home/home_screen.dart';
 import 'package:corporate_ride_sharing/screens/login/mobile_screen.dart';
 import 'package:corporate_ride_sharing/screens/login/otp_screen.dart';
+import 'package:corporate_ride_sharing/screens/profile/user_profile.dart';
 import 'package:corporate_ride_sharing/screens/roleSelection/role_selection.dart';
 import 'package:corporate_ride_sharing/screens/splash/splash_screen.dart';
 import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/otp': (context) => OtpScreen(phoneNumber: phoneNumber),
         '/home': (context) => const HomeScreen(),
         '/role_selection': (context) => const RoleSelection(),
+        '/user_profile': (context) => const UserProfile(),
       },
       initialRoute: '/',
     );

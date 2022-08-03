@@ -1,7 +1,11 @@
+import 'package:corporate_ride_sharing/screens/Account/account.dart';
+import 'package:corporate_ride_sharing/screens/giveRide/give_ride.dart';
 import 'package:corporate_ride_sharing/screens/home/home_screen.dart';
 import 'package:corporate_ride_sharing/screens/login/mobile_screen.dart';
 import 'package:corporate_ride_sharing/screens/login/otp_screen.dart';
 import 'package:corporate_ride_sharing/screens/profile/user_profile.dart';
+import 'package:corporate_ride_sharing/screens/requestRide/request_ride.dart';
+import 'package:corporate_ride_sharing/screens/rideHistory/ride_history.dart';
 import 'package:corporate_ride_sharing/screens/roleSelection/role_selection.dart';
 import 'package:corporate_ride_sharing/screens/space/space_screen.dart';
 import 'package:corporate_ride_sharing/screens/splash/splash_screen.dart';
@@ -40,6 +44,11 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/role_selection': (context) => const RoleSelection(),
         '/user_profile': (context) => const UserProfile(),
+        '/space_screen': (context) => const SpaceScreen(),
+        '/request_ride': (context) => const RequestRide(),
+        '/give_ride': (context) => const GiveRide(),
+        '/ride_history': (context) => const RideHistory(),
+        '/account': (context) => const Account(),
       },
       initialRoute: '/',
     );

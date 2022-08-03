@@ -34,28 +34,30 @@ class RoleSelection extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
                       child: Text(
-                        "Select Your Role",
+                        "select your role",
                         style: Theme.of(context).textTheme.h2,
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.03),
                     roleContainer(
-                        context,
-                        screenHeight,
-                        screenWidth,
-                        'assets/images/svg/role1_take.svg',
-                        'Passenger',
-                        'Searching for rides?',
-                        true),
+                      context,
+                      screenHeight,
+                      screenWidth,
+                      'assets/images/svg/role1_take.svg',
+                      'Passenger',
+                      'searching for rides?',
+                      true,
+                    ),
                     const SizedBox(height: 16.0),
                     roleContainer(
-                        context,
-                        screenHeight,
-                        screenWidth,
-                        'assets/images/svg/role2_give.svg',
-                        'Rider',
-                        'Wish to share your ride?',
-                        false),
+                      context,
+                      screenHeight,
+                      screenWidth,
+                      'assets/images/svg/role2_give.svg',
+                      'Rider',
+                      'wish to share your ride?',
+                      false,
+                    ),
                   ],
                 ),
               ],
@@ -64,7 +66,7 @@ class RoleSelection extends StatelessWidget {
     );
   }
 
-  Container roleContainer(
+  GestureDetector roleContainer(
       BuildContext context,
       double screenHeight,
       double screenWidth,
@@ -72,38 +74,44 @@ class RoleSelection extends StatelessWidget {
       String title,
       String description,
       bool isSelected) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-      padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: isSelected ? ColorShades.backGroundGrey : ColorShades.greenDark,
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SvgPicture.asset(
-            imagePath,
-            height: screenHeight * 0.1,
-            placeholderBuilder: (context) => const SizedBox.shrink(),
-          ),
-          SizedBox(width: screenWidth * 0.03),
-          Expanded(
-            child: RichText(
-              text: TextSpan(
-                text: title,
-                style: Theme.of(context).textTheme.h4,
-                children: [
-                  TextSpan(
-                    text: "\n$description",
-                    style: Theme.of(context).textTheme.h6.copyWith(height: 2),
-                  ),
-                ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.popAndPushNamed(context, '/user_profile');
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color:
+              isSelected ? ColorShades.backGroundGrey : ColorShades.greenDark,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              imagePath,
+              height: screenHeight * 0.1,
+              placeholderBuilder: (context) => const SizedBox.shrink(),
+            ),
+            SizedBox(width: screenWidth * 0.03),
+            Expanded(
+              child: RichText(
+                text: TextSpan(
+                  text: title,
+                  style: Theme.of(context).textTheme.h4,
+                  children: [
+                    TextSpan(
+                      text: "\n$description",
+                      style: Theme.of(context).textTheme.h6.copyWith(height: 2),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

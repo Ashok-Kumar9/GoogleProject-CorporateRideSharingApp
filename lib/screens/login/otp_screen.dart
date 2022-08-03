@@ -102,7 +102,7 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
             style: Theme.of(context)
                 .textTheme
                 .h5
-                .copyWith(color: ColorShades.neon),
+                .copyWith(color: ColorShades.blue),
           ),
         ],
       ),
@@ -186,7 +186,7 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
                               return resendOtpTextWidget();
                             }
                             return CircleAvatar(
-                              backgroundColor: ColorShades.neon,
+                              backgroundColor: ColorShades.blue,
                               child: Text(
                                 '${remainingDuration.sec}',
                                 style: Theme.of(context)

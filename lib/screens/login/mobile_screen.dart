@@ -109,7 +109,7 @@ class _MobileScreenState extends State<MobileScreen> {
                         style: Theme.of(context)
                             .textTheme
                             .h7
-                            .copyWith(color: ColorShades.neon),
+                            .copyWith(color: ColorShades.blue),
                       ),
                       TextSpan(
                         text: "and have read our ",
@@ -120,7 +120,7 @@ class _MobileScreenState extends State<MobileScreen> {
                         style: Theme.of(context)
                             .textTheme
                             .h7
-                            .copyWith(color: ColorShades.neon),
+                            .copyWith(color: ColorShades.blue),
                       ),
                     ],
                   ),

@@ -36,7 +36,7 @@ class _UserProfileState extends State<UserProfile> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "My Profile",
+                "my profile",
                 style: Theme.of(context).textTheme.h2,
               ),
               SizedBox(height: screenHeight * 0.03),
@@ -55,7 +55,7 @@ class _UserProfileState extends State<UserProfile> {
               ),
               SizedBox(height: screenHeight * 0.05),
               Text(
-                "Please enter your full name",
+                "please enter your full name",
                 style: Theme.of(context).textTheme.h5,
               ),
               Container(
@@ -80,7 +80,7 @@ class _UserProfileState extends State<UserProfile> {
               ),
               SizedBox(height: screenHeight * 0.03),
               Text(
-                "Please enter your email id",
+                "please enter your email id",
                 style: Theme.of(context).textTheme.h5,
               ),
               Container(
@@ -111,11 +111,12 @@ class _UserProfileState extends State<UserProfile> {
                     print(_fullNameController.text);
                     print(_emailController.text);
                   }
-                  Navigator.pop(context);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/space', (route) => false);
                 },
                 child: Center(
                   child: Text(
-                    "Continue",
+                    "continue",
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.h3,
                     // textAlign: TextAlign.center,

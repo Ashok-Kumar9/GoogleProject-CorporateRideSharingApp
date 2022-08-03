@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void navigationFromSplashScreen() {
     Future.delayed(const Duration(seconds: 2), () {
       if (SharedPrefs().isLoggedIn) {
-        Navigator.popAndPushNamed(context, '/home');
+        Navigator.popAndPushNamed(context, '/space');
       } else {
         Navigator.popAndPushNamed(context, '/mobile');
       }

@@ -27,4 +27,10 @@ class SharedPrefs {
 
   set phoneNumber(String value) =>
       _sharedPrefs.setString(PrefsConstants.phoneNumber, value);
+
+  int get indexOfScreenWhereUserLeft =>
+      _sharedPrefs.getInt(PrefsConstants.indexOfScreenWhereUserLeft) ?? 0;
+
+  set indexOfScreenWhereUserLeft(int value) =>
+      _sharedPrefs.setInt(PrefsConstants.indexOfScreenWhereUserLeft, value);
 }

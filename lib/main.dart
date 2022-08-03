@@ -3,6 +3,7 @@ import 'package:corporate_ride_sharing/screens/login/mobile_screen.dart';
 import 'package:corporate_ride_sharing/screens/login/otp_screen.dart';
 import 'package:corporate_ride_sharing/screens/profile/user_profile.dart';
 import 'package:corporate_ride_sharing/screens/roleSelection/role_selection.dart';
+import 'package:corporate_ride_sharing/screens/space/space_screen.dart';
 import 'package:corporate_ride_sharing/screens/splash/splash_screen.dart';
 import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         '/mobile': (context) => const MobileScreen(),
         '/otp': (context) => OtpScreen(phoneNumber: phoneNumber),
+        '/space': (context) => const SpaceScreen(),
         '/home': (context) => const HomeScreen(),
         '/role_selection': (context) => const RoleSelection(),
         '/user_profile': (context) => const UserProfile(),

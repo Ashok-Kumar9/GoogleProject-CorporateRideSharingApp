@@ -9,6 +9,8 @@ class AppConstants {
 class PrefsConstants {
   static const String isLoggedIn = 'isLoggedIn';
   static const String phoneNumber = 'phoneNumber';
+  static const String indexOfScreenWhereUserLeft =
+      'indexOfScreenWhereUserLeft';
 
   static const String authToken = 'authToken';
   static const String userID = 'userID';

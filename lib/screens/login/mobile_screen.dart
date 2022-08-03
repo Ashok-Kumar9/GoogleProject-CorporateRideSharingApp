@@ -36,7 +36,6 @@ class _MobileScreenState extends State<MobileScreen> {
     }
   }
 
-
   @override
   void dispose() {
     _phoneController.dispose();
@@ -62,12 +61,12 @@ class _MobileScreenState extends State<MobileScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "We need your number to verify that it's you",
+                  "we need your number to verify that it's you",
                   style: Theme.of(context).textTheme.h2,
                 ),
                 SizedBox(height: screenHeight * 0.04),
                 Text(
-                  "Give us your number",
+                  "give us your number",
                   style: Theme.of(context)
                       .textTheme
                       .h5
@@ -102,11 +101,11 @@ class _MobileScreenState extends State<MobileScreen> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "By clicking continue, you agree to our ",
+                        text: "by clicking continue, you agree to our ",
                         style: Theme.of(context).textTheme.h7,
                       ),
                       TextSpan(
-                        text: "Terms and Conditions ",
+                        text: "terms and conditions ",
                         style: Theme.of(context)
                             .textTheme
                             .h7
@@ -117,7 +116,7 @@ class _MobileScreenState extends State<MobileScreen> {
                         style: Theme.of(context).textTheme.h7,
                       ),
                       TextSpan(
-                        text: "Privacy Policy",
+                        text: "privacy policy",
                         style: Theme.of(context)
                             .textTheme
                             .h7
@@ -137,12 +136,12 @@ class _MobileScreenState extends State<MobileScreen> {
                           context, '/otp', (route) => false);
                     } else {
                       _phoneController.clear();
-                      Fluttertoast.showToast(msg: "Please enter valid number");
+                      Fluttertoast.showToast(msg: "please enter valid number");
                     }
                   },
                   child: Center(
                     child: Text(
-                      "Continue",
+                      "continue",
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.h3,
                       // textAlign: TextAlign.center,

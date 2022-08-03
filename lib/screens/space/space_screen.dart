@@ -73,8 +73,8 @@ class _SpaceScreenState extends State<SpaceScreen>
             onDestinationSelected: (index) => saveIndex(index),
             destinations: const [
               NavigationDestination(
-                selectedIcon: Icon(Icons.pool),
-                icon: Icon(Icons.pool_outlined),
+                selectedIcon: Icon(Icons.location_on),
+                icon: Icon(Icons.location_on_outlined),
                 label: "request",
               ),
               NavigationDestination(

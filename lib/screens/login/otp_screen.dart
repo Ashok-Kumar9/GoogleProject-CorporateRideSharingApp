@@ -85,7 +85,7 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
         },
       );
     } catch (e) {
-      ReusableWidgets().showToast("Seems like you entered wrong OTP");
+      ReusableWidgets().showToast("seems like you entered wrong OTP");
     }
   }
 
@@ -93,11 +93,11 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
-        text: "Didn't received the OTP? ",
+        text: "didn't received the OTP? ",
         style: Theme.of(context).textTheme.h6,
         children: [
           TextSpan(
-            text: "Re-send",
+            text: "re-send",
             recognizer: onTapRecognizer,
             style: Theme.of(context)
                 .textTheme
@@ -137,12 +137,12 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "We have sent you the OTP",
+                    "we have sent you the OTP",
                     style: Theme.of(context).textTheme.h2,
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   Text(
-                    "Enter the 6 digit otp sent on ${widget.phoneNumber} to proceed",
+                    "enter the 6 digit otp sent on ${widget.phoneNumber} to proceed",
                     style: Theme.of(context)
                         .textTheme
                         .h5
@@ -206,7 +206,7 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
                         smsCode: _otpController.text)),
                     child: Center(
                       child: Text(
-                        "Continue",
+                        "continue",
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.h3,
                         // textAlign: TextAlign.center,

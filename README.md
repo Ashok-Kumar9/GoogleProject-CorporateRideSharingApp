@@ -1,16 +1,21 @@
-# corporate_ride_sharing
+# Ride With Me
+## Corporate Ride Sharing App
 
-A new Flutter project.
+## Working
+-> Basic project setup
+-> Added files like style, constants
+-> Splash screen created
+-> Mobile screen created
+-> OTP screen created
+-> Firebase setup for OTP authentication
+-> Gave final touches to login (like only allowed from the mobile screen if the number is valid, OTP length should be precisely 6 then only allowed to call verify OTP, etc.)
+-> Animation added to the compilation of login
+-> Shared preferences added for storing local data
+-> Searched images and animations, edited them according to uses (using Canva and Lottie file editor), and uploaded images on postImage for URLs
+-> Role selection screen added
+-> User profile screen added
+-> Navigation bar added to the project
+-> Navbar icons were added after searching across websites (dribbble)
+-> Vehicle images searched and edited using Canva
+-> Add Vehicle screen added
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

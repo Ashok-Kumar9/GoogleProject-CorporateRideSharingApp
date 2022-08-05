@@ -9,6 +9,7 @@ import 'package:corporate_ride_sharing/screens/rideHistory/ride_history.dart';
 import 'package:corporate_ride_sharing/screens/roleSelection/role_selection.dart';
 import 'package:corporate_ride_sharing/screens/space/space_screen.dart';
 import 'package:corporate_ride_sharing/screens/splash/splash_screen.dart';
+import 'package:corporate_ride_sharing/screens/vehicle/vehicle.dart';
 import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         '/give_ride': (context) => const GiveRide(),
         '/ride_history': (context) => const RideHistory(),
         '/account': (context) => const Account(),
+        '/vehicle': (context) => const Vehicle(),
       },
       initialRoute: '/',
     );

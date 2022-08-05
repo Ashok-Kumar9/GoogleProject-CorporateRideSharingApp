@@ -61,6 +61,30 @@ class ReusableWidgets {
     );
   }
 
+  Expanded coloredTextContainer(
+      BuildContext context, Function() onTap, String text, Color color,
+      {EdgeInsets margin = const EdgeInsets.all(0.0)}) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(8.0),
+          margin: margin,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          child: Center(
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.h5,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(
       BuildContext context, String message) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(

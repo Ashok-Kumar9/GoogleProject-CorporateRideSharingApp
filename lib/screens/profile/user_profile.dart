@@ -18,6 +18,13 @@ class _UserProfileState extends State<UserProfile> {
   final TextEditingController _fullNameController = TextEditingController();
 
   @override
+  void dispose() {
+    _fullNameController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -61,7 +68,7 @@ class _UserProfileState extends State<UserProfile> {
               Container(
                 margin: const EdgeInsets.only(top: 16.0),
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                decoration: BoxDecorations().detailPageBoxDecoration,
+                decoration: BoxDecorations().textFieldBox,
                 child: Center(
                   child: TextField(
                     controller: _fullNameController,
@@ -86,7 +93,7 @@ class _UserProfileState extends State<UserProfile> {
               Container(
                 margin: const EdgeInsets.only(top: 16.0),
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                decoration: BoxDecorations().detailPageBoxDecoration,
+                decoration: BoxDecorations().textFieldBox,
                 child: Center(
                   child: TextField(
                     controller: _emailController,

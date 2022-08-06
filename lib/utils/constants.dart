@@ -4,6 +4,8 @@ class AppConstants {
       'https://i.postimg.cc/Jh5dwmg5/Untitled-100-924-px-200-100-px-40-40-px-100-100-px-200-200-px-400-400-px.png';
   static const String defaultUserImageBlurHash =
       'UHF~m:of00ayIVazt7fQ00ay~pof?bj[IVfQ';
+  static const String mapsKey= "AIzaSyDtIQs5zxF0InETBwDjhFri9qRkPetBTH4";
+
 }
 
 class PrefsConstants {

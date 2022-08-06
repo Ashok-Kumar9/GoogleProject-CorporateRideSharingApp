@@ -5,7 +5,7 @@ class AnimatedBorder extends StatefulWidget {
   const AnimatedBorder({
     Key? key,
     required this.child,
-    this.thickness = 2,
+    this.thickness = 1.2,
     this.gradientColors = const [
       ColorShades.googleBlue,
       ColorShades.googleRed,

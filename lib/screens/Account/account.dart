@@ -42,9 +42,9 @@ class Account extends StatelessWidget {
                   color: ColorShades.backGroundGrey,
                   boxShadow: [
                     BoxShadow(
-                      color: ColorShades.grey,
-                      blurRadius: 10.0,
-                      spreadRadius: 0.01,
+                      color: ColorShades.backGroundBlack,
+                      blurRadius: 5.0,
+                      spreadRadius: 2.0,
                     ),
                   ],
                   borderRadius: BorderRadius.all(
@@ -98,9 +98,10 @@ class Account extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
-                        gradient: Gradients().referEarnContainerGradient,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8.0))),
+                      gradient: Gradients().referEarnContainerGradient,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(8.0)),
+                    ),
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,

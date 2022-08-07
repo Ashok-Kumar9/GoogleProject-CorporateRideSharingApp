@@ -10,6 +10,7 @@ class ColorShades {
   static const Color backGroundBlack = Color(0xFF212121);
   static const Color backGroundGrey = Color(0xFF2B2B2B);
   static const Color lightGrey = Color(0xFF333333);
+  static const Color mediumGrey = Color(0xFFefefef);
   static const Color grey = Colors.grey;
   static const Color white = Color(0xffffffff);
   static const Color blue = Color(0xff288fee);

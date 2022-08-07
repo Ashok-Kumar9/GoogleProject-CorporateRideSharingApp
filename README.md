@@ -18,4 +18,5 @@
 -> Navbar icons were added after searching across websites (dribbble)
 -> Vehicle images searched and edited using Canva
 -> Add Vehicle screen added
+-> Ride History screen added
 

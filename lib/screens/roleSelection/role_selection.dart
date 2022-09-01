@@ -1,3 +1,4 @@
+import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
 import 'package:corporate_ride_sharing/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -76,6 +77,7 @@ class RoleSelection extends StatelessWidget {
       bool isSelected) {
     return GestureDetector(
       onTap: () {
+        SharedPrefs().userRole = title.toUpperCase();
         Navigator.popAndPushNamed(context, '/user_profile');
       },
       child: Container(

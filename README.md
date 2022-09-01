@@ -19,4 +19,6 @@
 -> Vehicle images searched and edited using Canva
 -> Add Vehicle screen added
 -> Ride History screen added
+-> Profile screen model and service added for get request
 
+taqkla

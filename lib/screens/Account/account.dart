@@ -1,14 +1,39 @@
+import 'dart:math';
+
+import 'package:corporate_ride_sharing/Models/user_data.dart';
 import 'package:corporate_ride_sharing/components/animated_border.dart';
 import 'package:corporate_ride_sharing/components/reusable_widgets.dart';
+import 'package:corporate_ride_sharing/services/remote_service.dart';
 import 'package:corporate_ride_sharing/utils/constants.dart';
 import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
 import 'package:corporate_ride_sharing/utils/style.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shimmer/shimmer.dart';
 
-class Account extends StatelessWidget {
+class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
+
+  @override
+  State<Account> createState() => _AccountState();
+}
+
+class _AccountState extends State<Account> {
+  late UserData userData;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
+  void getUserData() async {
+    userData =
+        await RemoteService().getUserData("BmH9BPdF8mPc3A4VIa7S8vtW8rj2");
+    setState(() => isLoading = false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,64 +59,120 @@ class Account extends StatelessWidget {
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             children: [
-              Container(
-                height: screenHeight * 0.15,
-                margin: const EdgeInsets.symmetric(vertical: 24.0),
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                decoration: const BoxDecoration(
-                  color: ColorShades.backGroundGrey,
-                  boxShadow: [
-                    BoxShadow(
-                      color: ColorShades.backGroundBlack,
-                      blurRadius: 5.0,
-                      spreadRadius: 2.0,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8.0),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: screenHeight * 0.1,
-                      height: screenHeight * 0.1,
-                      child: ReusableWidgets().buildCachedImageWithBlurHash(
-                        AppConstants.defaultUserImageUrl,
-                        blurHash: AppConstants.defaultUserImageBlurHash,
-                        boxFit: BoxFit.contain,
+              isLoading
+                  ? Container(
+                      height: screenHeight * 0.15,
+                      margin: const EdgeInsets.symmetric(vertical: 24.0),
+                      decoration: const BoxDecoration(
+                        color: ColorShades.backGroundGrey,
+                        boxShadow: [
+                          BoxShadow(
+                            color: ColorShades.backGroundBlack,
+                            blurRadius: 5.0,
+                            spreadRadius: 2.0,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8.0),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 12.0),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Shimmer.fromColors(
+                        baseColor: ColorShades.lightGrey,
+                        highlightColor: ColorShades.grey,
+                        period: const Duration(milliseconds: 1000),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: screenHeight * 0.1,
+                              height: screenHeight * 0.1,
+                              child: ReusableWidgets()
+                                  .buildCachedImageWithBlurHash(
+                                AppConstants.defaultUserImageUrl,
+                                blurHash: AppConstants.defaultUserImageBlurHash,
+                                boxFit: BoxFit.contain,
+                              ),
+                            ),
+                            const SizedBox(width: 12.0),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  for (int i = 1; i < 4; i++)
+                                    Container(
+                                      color: Colors.white,
+                                      margin: EdgeInsets.only(
+                                          bottom: screenHeight * 0.01),
+                                      height: 14.0,
+                                      width: screenHeight *
+                                          (Random().nextDouble() * 0.05 + 0.1),
+                                    )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : Container(
+                      height: screenHeight * 0.15,
+                      margin: const EdgeInsets.symmetric(vertical: 24.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      decoration: const BoxDecoration(
+                        color: ColorShades.backGroundGrey,
+                        boxShadow: [
+                          BoxShadow(
+                            color: ColorShades.backGroundBlack,
+                            blurRadius: 5.0,
+                            spreadRadius: 2.0,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8.0),
+                        ),
+                      ),
+                      child: Row(
                         children: [
-                          Text(
-                            "Ashok Kumar",
-                            style: Theme.of(context).textTheme.h3,
+                          SizedBox(
+                            width: screenHeight * 0.1,
+                            height: screenHeight * 0.1,
+                            child:
+                                ReusableWidgets().buildCachedImageWithBlurHash(
+                              AppConstants.defaultUserImageUrl,
+                              blurHash: AppConstants.defaultUserImageBlurHash,
+                              boxFit: BoxFit.contain,
+                            ),
                           ),
-                          SizedBox(height: screenHeight * 0.01),
-                          Text(
-                            "9024276892",
-                            style: Theme.of(context).textTheme.h5,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          SizedBox(height: screenHeight * 0.01),
-                          Text(
-                            "ashokkumar9024276892@gmail.com",
-                            style: Theme.of(context).textTheme.h5,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          const SizedBox(width: 12.0),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  userData.user.fullName,
+                                  style: Theme.of(context).textTheme.h3,
+                                ),
+                                SizedBox(height: screenHeight * 0.01),
+                                Text(
+                                  userData.user.mobileNo,
+                                  style: Theme.of(context).textTheme.h5,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(height: screenHeight * 0.01),
+                                Text(
+                                  userData.user.emailId,
+                                  style: Theme.of(context).textTheme.h5,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
-              ),
               GestureDetector(
                 onTap: () {},
                 child: AnimatedBorder(

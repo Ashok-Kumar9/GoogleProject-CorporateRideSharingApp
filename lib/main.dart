@@ -11,6 +11,7 @@ import 'package:corporate_ride_sharing/screens/space/space_screen.dart';
 import 'package:corporate_ride_sharing/screens/splash/splash_screen.dart';
 import 'package:corporate_ride_sharing/screens/vehicle/vehicle.dart';
 import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await SharedPrefs().init();
+  String token =  await FirebaseAuth.instance.currentUser?.getIdToken() as String;
+  SharedPrefs().authToken = token;
+  // FirebaseAuth.instance.idTokenChanges().listen((token) {
+  //   if (token != null) {
+  //     SharedPrefs().authToken = token as String;
+  //   }
+  // });
   runApp(const MyApp());
 }
 

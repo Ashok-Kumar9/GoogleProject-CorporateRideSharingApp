@@ -82,14 +82,18 @@ class _AccountState extends State<Account> {
                         period: const Duration(milliseconds: 1000),
                         child: Row(
                           children: [
-                            SizedBox(
-                              width: screenHeight * 0.1,
-                              height: screenHeight * 0.1,
-                              child: ReusableWidgets()
-                                  .buildCachedImageWithBlurHash(
-                                AppConstants.defaultUserImageUrl,
-                                blurHash: AppConstants.defaultUserImageBlurHash,
-                                boxFit: BoxFit.contain,
+                            Padding(
+                              padding: const EdgeInsets.only(left: 12.0),
+                              child: SizedBox(
+                                width: screenHeight * 0.1,
+                                height: screenHeight * 0.1,
+                                child: ReusableWidgets()
+                                    .buildCachedImageWithBlurHash(
+                                  AppConstants.defaultUserImageUrl,
+                                  blurHash:
+                                      AppConstants.defaultUserImageBlurHash,
+                                  boxFit: BoxFit.contain,
+                                ),
                               ),
                             ),
                             const SizedBox(width: 12.0),
@@ -138,9 +142,9 @@ class _AccountState extends State<Account> {
                             height: screenHeight * 0.1,
                             child:
                                 ReusableWidgets().buildCachedImageWithBlurHash(
-                              AppConstants.defaultUserImageUrl,
+                              userData.user.profileUrl ??
+                                  AppConstants.defaultUserImageUrl,
                               blurHash: AppConstants.defaultUserImageBlurHash,
-                              boxFit: BoxFit.contain,
                             ),
                           ),
                           const SizedBox(width: 12.0),
@@ -281,7 +285,7 @@ class _AccountState extends State<Account> {
           margin: const EdgeInsets.all(4.0),
           decoration: const BoxDecoration(
             color: ColorShades.lightGrey,
-            borderRadius: BorderRadius.all(Radius.circular(24.0)),
+            borderRadius: BorderRadius.all(Radius.circular(12.0)),
           ),
           child: Row(
             children: [

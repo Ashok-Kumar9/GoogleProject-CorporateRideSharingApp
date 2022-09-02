@@ -89,11 +89,14 @@ class _MobileScreenState extends State<MobileScreen> {
                     style: Theme.of(context).textTheme.h2,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                        counterText: '',
-                        hintStyle: Theme.of(context).textTheme.h2.copyWith(
-                            color: const Color.fromRGBO(97, 97, 97, 1)),
-                        hintText: '9876543210',
-                        border: InputBorder.none),
+                      counterText: '',
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .h2
+                          .copyWith(color: const Color.fromRGBO(97, 97, 97, 1)),
+                      hintText: '9876543210',
+                      border: InputBorder.none,
+                    ),
                   ),
                 ),
                 const Spacer(),
@@ -109,7 +112,7 @@ class _MobileScreenState extends State<MobileScreen> {
                         style: Theme.of(context)
                             .textTheme
                             .h7
-                            .copyWith(color: ColorShades.neon),
+                            .copyWith(color: ColorShades.blue),
                       ),
                       TextSpan(
                         text: "and have read our ",
@@ -120,7 +123,7 @@ class _MobileScreenState extends State<MobileScreen> {
                         style: Theme.of(context)
                             .textTheme
                             .h7
-                            .copyWith(color: ColorShades.neon),
+                            .copyWith(color: ColorShades.blue),
                       ),
                     ],
                   ),

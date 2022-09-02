@@ -76,7 +76,9 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
   void verifyOTP(PhoneAuthCredential credential) async {
     try {
       await auth.signInWithCredential(credential).then(
-        (value) {
+        (value) async {
+          String? token = await  value.user?.getIdToken();
+          SharedPrefs().authToken = token!;
           if (value.user != null) {
             SharedPrefs().isLoggedIn = true;
             otpFocusNode.unfocus();
@@ -102,7 +104,7 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
             style: Theme.of(context)
                 .textTheme
                 .h5
-                .copyWith(color: ColorShades.neon),
+                .copyWith(color: ColorShades.blue),
           ),
         ],
       ),
@@ -186,7 +188,7 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
                               return resendOtpTextWidget();
                             }
                             return CircleAvatar(
-                              backgroundColor: ColorShades.neon,
+                              backgroundColor: ColorShades.blue,
                               child: Text(
                                 '${remainingDuration.sec}',
                                 style: Theme.of(context)

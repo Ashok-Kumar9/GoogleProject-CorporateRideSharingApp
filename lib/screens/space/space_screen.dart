@@ -15,7 +15,7 @@ class SpaceScreen extends StatefulWidget {
 
 class _SpaceScreenState extends State<SpaceScreen>
     with TickerProviderStateMixin {
-  int _currentIndex = 0;
+  late int _currentIndex;
   final List<int> navigationBarIndexStackList = [];
 
   @override
@@ -34,9 +34,9 @@ class _SpaceScreenState extends State<SpaceScreen>
     if (navigationBarIndexStackList.length > 4) {
       navigationBarIndexStackList.removeAt(0);
     }
-    SharedPrefs().indexOfScreenWhereUserLeft = _currentIndex;
     setState(() {
       _currentIndex = index;
+      SharedPrefs().indexOfScreenWhereUserLeft = _currentIndex;
     });
   }
 
@@ -50,6 +50,7 @@ class _SpaceScreenState extends State<SpaceScreen>
         navigationBarIndexStackList.remove(_currentIndex);
         setState(() {
           _currentIndex = navigationBarIndexStackList.removeLast();
+          SharedPrefs().indexOfScreenWhereUserLeft = _currentIndex;
         });
         return Future.value(false);
       },
@@ -73,22 +74,34 @@ class _SpaceScreenState extends State<SpaceScreen>
             onDestinationSelected: (index) => saveIndex(index),
             destinations: const [
               NavigationDestination(
-                selectedIcon: Icon(Icons.location_on),
+                selectedIcon: Icon(
+                  Icons.location_on,
+                  color: ColorShades.blue,
+                ),
                 icon: Icon(Icons.location_on_outlined),
                 label: "request",
               ),
               NavigationDestination(
-                selectedIcon: Icon(Icons.directions_car),
+                selectedIcon: Icon(
+                  Icons.directions_car,
+                  color: ColorShades.blue,
+                ),
                 icon: Icon(Icons.directions_car_outlined),
                 label: "ride",
               ),
               NavigationDestination(
-                selectedIcon: Icon(Icons.history),
+                selectedIcon: Icon(
+                  Icons.history,
+                  color: ColorShades.blue,
+                ),
                 icon: Icon(Icons.history_outlined),
                 label: "history",
               ),
               NavigationDestination(
-                selectedIcon: Icon(Icons.account_circle),
+                selectedIcon: Icon(
+                  Icons.account_circle,
+                  color: ColorShades.blue,
+                ),
                 icon: Icon(Icons.account_circle_outlined),
                 label: "account",
               ),

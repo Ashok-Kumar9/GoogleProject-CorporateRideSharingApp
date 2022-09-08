@@ -154,19 +154,19 @@ class _AccountState extends State<Account> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  userData.user.fullName,
+                                  userData.user.fullName ?? "",
                                   style: Theme.of(context).textTheme.h3,
                                 ),
                                 SizedBox(height: screenHeight * 0.01),
                                 Text(
-                                  userData.user.mobileNo,
+                                  userData.user.mobileNo??"",
                                   style: Theme.of(context).textTheme.h5,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 SizedBox(height: screenHeight * 0.01),
                                 Text(
-                                  userData.user.emailId,
+                                  userData.user.emailId??"",
                                   style: Theme.of(context).textTheme.h5,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,

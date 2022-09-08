@@ -6,8 +6,8 @@ class PrefsConstants {
   static const String indexOfScreenWhereUserLeft = 'indexOfScreenWhereUserLeft';
   static const String authToken = 'authToken';
   static const String userRole = 'userRole';
+  static const String userId = 'userID';
 
-  static const String userID = 'userID';
   static const String emailID = 'emailID';
   static const String fullName = 'fullName';
 }
@@ -51,10 +51,14 @@ class SharedPrefs {
   set authToken(String value) =>
       _sharedPrefs.setString(PrefsConstants.authToken, value);
 
-
   String get userRole =>
       _sharedPrefs.getString(PrefsConstants.userRole) ?? "PASSENGER";
 
   set userRole(String value) =>
       _sharedPrefs.setString(PrefsConstants.userRole, value);
+
+  String get userId => _sharedPrefs.getString(PrefsConstants.userId) ?? "";
+
+  set userId(String value) =>
+      _sharedPrefs.setString(PrefsConstants.userId, value);
 }

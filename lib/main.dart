@@ -19,7 +19,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await SharedPrefs().init();
-  String token =  await FirebaseAuth.instance.currentUser?.getIdToken() as String;
+  String token =  await FirebaseAuth.instance.currentUser?.getIdToken() ?? '';
   SharedPrefs().authToken = token;
   // FirebaseAuth.instance.idTokenChanges().listen((token) {
   //   if (token != null) {
@@ -53,7 +53,6 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/role_selection': (context) => const RoleSelection(),
         '/user_profile': (context) => const UserProfile(),
-        '/space_screen': (context) => const SpaceScreen(),
         '/request_ride': (context) => const RequestRide(),
         '/give_ride': (context) => const GiveRide(),
         '/ride_history': (context) => const RideHistory(),

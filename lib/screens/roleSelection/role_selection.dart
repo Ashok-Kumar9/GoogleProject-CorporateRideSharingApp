@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../Models/user_data.dart';
+import '../../services/remote_service.dart';
+
 class RoleSelection extends StatelessWidget {
   const RoleSelection({Key? key}) : super(key: key);
 
@@ -28,38 +31,80 @@ class RoleSelection extends StatelessWidget {
                     errorBuilder: (context, e, s) => const SizedBox.shrink(),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
-                      child: Text(
-                        "select your role",
-                        style: Theme.of(context).textTheme.h2,
-                      ),
-                    ),
-                    SizedBox(height: screenHeight * 0.03),
-                    roleContainer(
-                      context,
-                      screenHeight,
-                      screenWidth,
-                      'assets/images/svg/role1_take.svg',
-                      'Passenger',
-                      'searching for rides?',
-                      true,
-                    ),
-                    const SizedBox(height: 16.0),
-                    roleContainer(
-                      context,
-                      screenHeight,
-                      screenWidth,
-                      'assets/images/svg/role2_give.svg',
-                      'Rider',
-                      'wish to share your ride?',
-                      false,
-                    ),
-                  ],
+                FutureBuilder(
+                  future: RemoteService().getUserData(SharedPrefs().userId),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      UserData userData = snapshot.data as UserData;
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.08),
+                            child: Text(
+                              "select your role",
+                              style: Theme.of(context).textTheme.h2,
+                            ),
+                          ),
+                          SizedBox(height: screenHeight * 0.03),
+                          roleContainer(
+                            context,
+                            screenHeight,
+                            screenWidth,
+                            'assets/images/svg/role1_take.svg',
+                            'Passenger',
+                            'searching for rides?',
+                            userData.user.role != "PASSENGER",
+                          ),
+                          const SizedBox(height: 16.0),
+                          roleContainer(
+                            context,
+                            screenHeight,
+                            screenWidth,
+                            'assets/images/svg/role2_give.svg',
+                            'Rider',
+                            'wish to share your ride?',
+                            userData.user.role != "RIDER",
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.08),
+                            child: Text(
+                              "select your role",
+                              style: Theme.of(context).textTheme.h2,
+                            ),
+                          ),
+                          SizedBox(height: screenHeight * 0.03),
+                          roleContainer(
+                            context,
+                            screenHeight,
+                            screenWidth,
+                            'assets/images/svg/role1_take.svg',
+                            'Passenger',
+                            'searching for rides?',
+                            true,
+                          ),
+                          const SizedBox(height: 16.0),
+                          roleContainer(
+                            context,
+                            screenHeight,
+                            screenWidth,
+                            'assets/images/svg/role2_give.svg',
+                            'Rider',
+                            'wish to share your ride?',
+                            true,
+                          ),
+                        ],
+                      );
+                    }
+                  },
                 ),
               ],
             ),

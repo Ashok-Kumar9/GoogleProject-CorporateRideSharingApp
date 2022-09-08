@@ -78,7 +78,9 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
       await auth.signInWithCredential(credential).then(
         (value) async {
           String? token = await  value.user?.getIdToken();
+          String? userId = value.user?.uid;
           SharedPrefs().authToken = token!;
+          SharedPrefs().userId = userId!;
           if (value.user != null) {
             SharedPrefs().isLoggedIn = true;
             otpFocusNode.unfocus();

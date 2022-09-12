@@ -1,15 +1,16 @@
 import 'dart:math';
 
-import 'package:corporate_ride_sharing/Models/user_data.dart';
+import 'package:corporate_ride_sharing/Models/user_model.dart';
 import 'package:corporate_ride_sharing/components/animated_border.dart';
 import 'package:corporate_ride_sharing/components/reusable_widgets.dart';
-import 'package:corporate_ride_sharing/services/remote_service.dart';
+import 'package:corporate_ride_sharing/services/user_services.dart';
 import 'package:corporate_ride_sharing/utils/constants.dart';
 import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
 import 'package:corporate_ride_sharing/utils/style.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Account extends StatefulWidget {
@@ -30,8 +31,7 @@ class _AccountState extends State<Account> {
   }
 
   void getUserData() async {
-    userData =
-        await RemoteService().getUserData("BmH9BPdF8mPc3A4VIa7S8vtW8rj2");
+    userData = await UserRemoteService().getUserData(SharedPrefs().userId);
     setState(() => isLoading = false);
   }
 
@@ -159,14 +159,14 @@ class _AccountState extends State<Account> {
                                 ),
                                 SizedBox(height: screenHeight * 0.01),
                                 Text(
-                                  userData.user.mobileNo??"",
+                                  userData.user.mobileNo ?? "",
                                   style: Theme.of(context).textTheme.h5,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 SizedBox(height: screenHeight * 0.01),
                                 Text(
-                                  userData.user.emailId??"",
+                                  userData.user.emailId ?? "",
                                   style: Theme.of(context).textTheme.h5,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -178,7 +178,7 @@ class _AccountState extends State<Account> {
                       ),
                     ),
               GestureDetector(
-                onTap: () {},
+                onTap: () => Navigator.of(context).pushNamed('/share'),
                 child: AnimatedBorder(
                   child: Container(
                     padding: const EdgeInsets.all(12.0),
@@ -231,29 +231,30 @@ class _AccountState extends State<Account> {
                 "add vehicle",
                 () => Navigator.pushNamed(context, '/vehicle'),
               ),
-              option(
-                context,
-                Icons.support_agent_rounded,
-                "help and support",
-                () {},
-              ),
-              option(
-                context,
-                Icons.rate_review_rounded,
-                "review us",
-                () {},
-              ),
+              // option(
+              //   context,
+              //   Icons.support_agent_rounded,
+              //   "help and support",
+              //   () {},
+              // ),
+              // option(
+              //   context,
+              //   Icons.rate_review_rounded,
+              //   "review us",
+              //   () {},
+              // ),
               option(
                 context,
                 Icons.person_add,
                 "refer us",
-                () {},
+                () => Share.share(
+                    "Hey, use my referral code A9Y84FM to get 10% off on your first ride on the app. Download the app now: https://play.google.com/store/apps/details?id=com.google.android.apps.maps"),
               ),
               option(
                 context,
                 Icons.help_outline_rounded,
                 "app info",
-                () {},
+                () => Navigator.pushNamed(context, '/app_info'),
               ),
               option(
                 context,

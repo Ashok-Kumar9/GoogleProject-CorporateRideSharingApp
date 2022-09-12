@@ -105,4 +105,30 @@ class ReusableWidgets {
       textColor: Colors.white,
     );
   }
+
+  GestureDetector circularIconAppBarButton(
+      {required IconData iconData,
+        double margin = 8.0,
+        double padding = 6.0,
+        Color iconColor = Colors.white,
+        required Color backGroundColor,
+        required Function() onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: FittedBox(
+        child: Container(
+          margin:
+          EdgeInsets.symmetric(vertical: margin).copyWith(right: margin),
+          padding: EdgeInsets.all(padding),
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: backGroundColor,
+              border: Border.all(width: 1, color: Colors.white12)),
+          child: Center(
+            child: Icon(iconData, color: iconColor),
+          ),
+        ),
+      ),
+    );
+  }
 }

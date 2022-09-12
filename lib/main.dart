@@ -1,4 +1,6 @@
 import 'package:corporate_ride_sharing/screens/Account/account.dart';
+import 'package:corporate_ride_sharing/screens/Account/app_info.dart';
+import 'package:corporate_ride_sharing/screens/Account/refer_earn.dart';
 import 'package:corporate_ride_sharing/screens/giveRide/give_ride.dart';
 import 'package:corporate_ride_sharing/screens/home/home_screen.dart';
 import 'package:corporate_ride_sharing/screens/login/mobile_screen.dart';
@@ -9,7 +11,7 @@ import 'package:corporate_ride_sharing/screens/rideHistory/ride_history.dart';
 import 'package:corporate_ride_sharing/screens/roleSelection/role_selection.dart';
 import 'package:corporate_ride_sharing/screens/space/space_screen.dart';
 import 'package:corporate_ride_sharing/screens/splash/splash_screen.dart';
-import 'package:corporate_ride_sharing/screens/vehicle/vehicle.dart';
+import 'package:corporate_ride_sharing/screens/vehicle/vehicle_screen.dart';
 import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -57,7 +59,9 @@ class MyApp extends StatelessWidget {
         '/give_ride': (context) => const GiveRide(),
         '/ride_history': (context) => const RideHistory(),
         '/account': (context) => const Account(),
-        '/vehicle': (context) => const Vehicle(),
+        '/vehicle': (context) => const VehicleScreen(),
+        '/share': (context) => const ShareScreen(),
+        '/app_info': (context) => const AppInfo(),
       },
       initialRoute: '/',
     );

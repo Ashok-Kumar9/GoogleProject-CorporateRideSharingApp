@@ -1,5 +1,5 @@
-import 'package:corporate_ride_sharing/Models/user_data.dart';
-import 'package:corporate_ride_sharing/services/remote_service.dart';
+import 'package:corporate_ride_sharing/Models/user_model.dart';
+import 'package:corporate_ride_sharing/services/user_services.dart';
 import 'package:corporate_ride_sharing/utils/constants.dart';
 import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
 import 'package:corporate_ride_sharing/utils/style.dart';
@@ -29,7 +29,9 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   void getUserData() async {
-    userData = await RemoteService().getUserData(SharedPrefs().userId);
+    userData = await UserRemoteService().getUserData(SharedPrefs().userId).onError(
+        (error, stackTrace) =>
+            UserData(message: error.toString(), user: User()));
     _emailController.text = userData.user.emailId ?? "";
     _fullNameController.text = userData.user.fullName ?? "";
     isUserAlreadyExists = userData.user.fullName != null;
@@ -136,23 +138,23 @@ class _UserProfileState extends State<UserProfile> {
                 onPressed: () async {
                   userData.user.fullName = _fullNameController.text;
                   userData.user.emailId = _emailController.text;
-                  userData.user.mobileNo = SharedPrefs().phoneNumber;
+                  // userData.user.mobileNo = SharedPrefs().phoneNumber;
                   userData.user.role = SharedPrefs().userRole;
 
+
                   UserData newUserData = await (isUserAlreadyExists
-                      ? RemoteService().updateUserData(userData.user).onError(
+                      ? UserRemoteService().updateUserData(userData.user).onError(
                           (error, stackTrace) => UserData(
                               message: error.toString(), user: userData.user))
-                      : RemoteService().postUserData(userData.user).onError(
+                      : UserRemoteService().postUserData(userData.user).onError(
                           (error, stackTrace) => UserData(
                               message: error.toString(), user: userData.user)));
-
-                  print(newUserData.message);
 
                   if (!mounted) return;
                   if (newUserData.message == "user registered successfully" ||
                       newUserData.message == "user updated successfully") {
                     SharedPrefs().userId = newUserData.user.userId!;
+                    SharedPrefs().vehicleId = newUserData.user.vehicleId!;
                     Navigator.pushNamedAndRemoveUntil(
                         context, '/space', (route) => false);
                   } else {

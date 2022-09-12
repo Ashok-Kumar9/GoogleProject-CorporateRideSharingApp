@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../Models/user_data.dart';
-import '../../services/remote_service.dart';
+import '../../Models/user_model.dart';
+import '../../services/user_services.dart';
 
 class RoleSelection extends StatelessWidget {
   const RoleSelection({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class RoleSelection extends StatelessWidget {
                   ),
                 ),
                 FutureBuilder(
-                  future: RemoteService().getUserData(SharedPrefs().userId),
+                  future: UserRemoteService().getUserData(SharedPrefs().userId),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       UserData userData = snapshot.data as UserData;

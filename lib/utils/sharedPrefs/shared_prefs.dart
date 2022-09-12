@@ -7,9 +7,7 @@ class PrefsConstants {
   static const String authToken = 'authToken';
   static const String userRole = 'userRole';
   static const String userId = 'userID';
-
-  static const String emailID = 'emailID';
-  static const String fullName = 'fullName';
+  static const String vehicleId = 'vehicleId';
 }
 
 class SharedPrefs {
@@ -61,4 +59,9 @@ class SharedPrefs {
 
   set userId(String value) =>
       _sharedPrefs.setString(PrefsConstants.userId, value);
+
+  String get vehicleId => _sharedPrefs.getString(PrefsConstants.vehicleId) ?? "";
+
+  set vehicleId(String value) =>
+      _sharedPrefs.setString(PrefsConstants.vehicleId, value);
 }

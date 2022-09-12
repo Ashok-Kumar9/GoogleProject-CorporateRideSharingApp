@@ -38,3 +38,7 @@
 
 -> Profile screen model and service added for get request
 
+-> User fetch, update and post added + few changes
+
+-> Vehicle fetch, update and post added, app info screen and share screen added, refer and earn screen added, and few changes
+

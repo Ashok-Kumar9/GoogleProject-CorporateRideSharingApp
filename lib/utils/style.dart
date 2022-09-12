@@ -55,4 +55,8 @@ class BoxDecorations {
   BoxDecoration get textFieldBox => const BoxDecoration(
       color: ColorShades.lightGrey,
       borderRadius: BorderRadius.all(Radius.circular(10.0)));
+
+  BoxDecoration get detailPageBoxDecoration => const BoxDecoration(
+      color: Color(0xff303030),
+      borderRadius: BorderRadius.all(Radius.circular(10.0)));
 }

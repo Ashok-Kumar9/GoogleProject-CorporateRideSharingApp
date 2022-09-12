@@ -106,7 +106,6 @@ class _GiveRideState extends State<GiveRide> {
       tripDirectionDetails = details;
     });
 
-    print(details.encodedPoints);
 
     PolylinePoints polylinePoints = PolylinePoints();
     List<PointLatLng> decodePolyLinePointsResult =

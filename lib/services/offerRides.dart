@@ -28,4 +28,24 @@ class OfferRidesService {
     }
   }
 
+   createRideOffer(RideOffer rideOffer) async {
+    try {
+      final response =
+      await http.post(Uri.parse("${baseUrl}api/ride-offer/"), headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": "Bearer ${SharedPrefs().authToken}"
+      }, body: jsonEncode(rideOffer.toJson()));
+      print(response.body);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        return  response.body.toString();
+      } else {
+        throw Exception('Failed to load data $response');
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
 }

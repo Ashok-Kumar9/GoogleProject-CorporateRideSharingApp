@@ -5,6 +5,9 @@ import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../models/offer_rides_model.dart';
+import '../screens/giveRide/give_ride.dart';
+
 class ReusableWidgets {
   CachedNetworkImage buildCachedImage(String imageUrl,
       {BoxFit boxFit = BoxFit.cover}) {
@@ -108,17 +111,17 @@ class ReusableWidgets {
 
   GestureDetector circularIconAppBarButton(
       {required IconData iconData,
-        double margin = 8.0,
-        double padding = 6.0,
-        Color iconColor = Colors.white,
-        required Color backGroundColor,
-        required Function() onTap}) {
+      double margin = 8.0,
+      double padding = 6.0,
+      Color iconColor = Colors.white,
+      required Color backGroundColor,
+      required Function() onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: FittedBox(
         child: Container(
           margin:
-          EdgeInsets.symmetric(vertical: margin).copyWith(right: margin),
+              EdgeInsets.symmetric(vertical: margin).copyWith(right: margin),
           padding: EdgeInsets.all(padding),
           decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -130,5 +133,47 @@ class ReusableWidgets {
         ),
       ),
     );
+  }
+
+  noOfSeatsAlertDialogue(BuildContext context, double height, double width,
+      {RideOffer? rideOffer}) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("no of seats you want to offer"),
+            content: SizedBox(
+              height: height,
+              width: width,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    for (int i = 1; i < 6; i++)
+                      ReusableWidgets().coloredTextContainer(
+                        context,
+                        () {
+                          if (rideOffer != null) {
+                            rideOffer.availableSeats = i;
+                            Navigator.pop(context);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    GiveRide(rideOffer: rideOffer),
+                              ),
+                            );
+                          }
+                        },
+                        i.toString(),
+                        ColorShades.greenDark,
+                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 }

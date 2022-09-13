@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'package:corporate_ride_sharing/screens/giveRide/give_ride.dart';
-import 'package:corporate_ride_sharing/services/offerRides.dart';
+import 'package:corporate_ride_sharing/components/reusable_widgets.dart';
+import 'package:corporate_ride_sharing/models/offer_rides_model.dart';
+import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
 import 'package:corporate_ride_sharing/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
@@ -46,6 +47,9 @@ class _GiveRideHomeState extends State<GiveRideHome> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -166,12 +170,30 @@ class _GiveRideHomeState extends State<GiveRideHome> {
                               // print("response is $response");
                               // print("message is ${response.message}");
                               // print("rideoffer is ${response.rideOffer[0].boardingPoint?.coordinates[0]}");
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const GiveRide(),
-                                ),
+
+                              RideOffer rideOffer = RideOffer(
+                                rideStatus: "YET_TO_START",
+                                currentPoint: Point(coordinates: [
+                                  sourceLocation.longitude,
+                                  sourceLocation.longitude
+                                ]),
+                                boardingPoint: Point(coordinates: [
+                                  sourceLocation.longitude,
+                                  sourceLocation.longitude
+                                ]),
+                                destinationPoint: Point(coordinates: [
+                                  destinationLocation.longitude,
+                                  destinationLocation.longitude
+                                ]),
+                                userId: SharedPrefs().userId,
                               );
 
+                              ReusableWidgets().noOfSeatsAlertDialogue(
+                                context,
+                                height * 0.1,
+                                width * 0.8,
+                                rideOffer: rideOffer,
+                              );
                             },
                             child: const Icon(
                               Icons.forward,

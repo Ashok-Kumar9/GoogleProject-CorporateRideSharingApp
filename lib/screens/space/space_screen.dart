@@ -1,5 +1,5 @@
 import 'package:corporate_ride_sharing/screens/Account/account.dart';
-import 'package:corporate_ride_sharing/screens/giveRide/give_ride.dart';
+import 'package:corporate_ride_sharing/screens/giveRide/give_ride_home.dart';
 import 'package:corporate_ride_sharing/screens/requestRide/request_ride.dart';
 import 'package:corporate_ride_sharing/screens/rideHistory/ride_history.dart';
 import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
@@ -58,7 +58,7 @@ class _SpaceScreenState extends State<SpaceScreen>
         body: _currentIndex == 0
             ? const RequestRide()
             : _currentIndex == 1
-                ? const GiveRide()
+                ? const GiveRideHome()
                 : _currentIndex == 2
                     ? const RideHistory()
                     : const Account(),

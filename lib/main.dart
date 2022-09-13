@@ -1,7 +1,7 @@
 import 'package:corporate_ride_sharing/screens/Account/account.dart';
 import 'package:corporate_ride_sharing/screens/Account/app_info.dart';
 import 'package:corporate_ride_sharing/screens/Account/refer_earn.dart';
-import 'package:corporate_ride_sharing/screens/giveRide/give_ride.dart';
+import 'package:corporate_ride_sharing/screens/giveRide/give_ride_home.dart';
 import 'package:corporate_ride_sharing/screens/home/home_screen.dart';
 import 'package:corporate_ride_sharing/screens/login/mobile_screen.dart';
 import 'package:corporate_ride_sharing/screens/login/otp_screen.dart';
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
         '/role_selection': (context) => const RoleSelection(),
         '/user_profile': (context) => const UserProfile(),
         '/request_ride': (context) => const RequestRide(),
-        '/give_ride': (context) => const GiveRide(),
+        '/give_ride': (context) => const GiveRideHome(),
         '/ride_history': (context) => const RideHistory(),
         '/account': (context) => const Account(),
         '/vehicle': (context) => const VehicleScreen(),

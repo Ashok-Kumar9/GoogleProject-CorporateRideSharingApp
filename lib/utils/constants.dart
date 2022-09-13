@@ -5,6 +5,8 @@ class AppConstants {
   static const String defaultUserImageBlurHash =
       'UHF~m:of00ayIVazt7fQ00ay~pof?bj[IVfQ';
   static const String mapsKey= "AIzaSyDtIQs5zxF0InETBwDjhFri9qRkPetBTH4";
+  static const String GOOGLE_MAPS_API_KEY = "AIzaSyC_MPgcB-GAIUYap_caF_lQdB1UqFIEhMg";
+  static const String country = 'IN';
   static const String mapDarkTheme= ('''
                     [
                       {

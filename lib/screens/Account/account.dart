@@ -46,9 +46,6 @@ class _AccountState extends State<Account> {
         backgroundColor: ColorShades.backGroundGrey,
         appBar: AppBar(
           backgroundColor: ColorShades.backGroundBlack,
-          leading: IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: const Icon(Icons.arrow_back_ios_new_rounded)),
           automaticallyImplyLeading: false,
           title: Text("account", style: Theme.of(context).textTheme.h3),
         ),

@@ -242,6 +242,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
                           if (newVehicleData.message ==
                               "vehicle updated successfully") {
                             ReusableWidgets().showToast(newVehicleData.message);
+                            Navigator.pop(context);
                           } else {
                             ReusableWidgets().showToast(
                                 "error while updating vehicle! try again");

@@ -1,15 +1,16 @@
 import 'dart:async';
 
-import 'package:corporate_ride_sharing/screens/giveRide/search_screen.dart';
 import 'package:corporate_ride_sharing/utils/style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_webservice/places.dart';
 
+import '../../Models/address_model.dart';
 import '../../Models/direction_details.dart';
-import '../../helper/helper_methods.dart';
+import '../../services/requestHelper.dart';
 import '../../utils/constants.dart';
 
 class GiveRide extends StatefulWidget {
@@ -21,13 +22,8 @@ class GiveRide extends StatefulWidget {
 
 class _GiveRideState extends State<GiveRide> {
   final Completer<GoogleMapController> _mapController = Completer();
-
   late GoogleMapController _newGoogleMapController;
 
-  late Animation<Offset> sidebarAnimation;
-  late Animation<double> fadeAnimation;
-  late AnimationController sidebarAnimationController;
-  var sidebarHidden = true;
   late CameraPosition cameraPosition;
 
   List<LatLng> pLineCoordinates = [];
@@ -37,175 +33,14 @@ class _GiveRideState extends State<GiveRide> {
 
   DirectionDetails? tripDirectionDetails;
 
-  double locationPanel = 300;
-  double riderDetailPanel = 0;
-  double requestRidePanel = 0;
-
   static const LatLng initialCameraPosition = LatLng(12.999900, 80.241250);
-  static const LatLng sourceLocation = LatLng(12.999900, 80.241250);
-  static const LatLng destinationLocation = LatLng(12.995740, 80.210297);
+  LatLng sourceLocation = const LatLng(12.999900, 80.241250);
+  String sourceAddress =
+      "Himalaya Mess Rd, Indian Institute Of Technology, Chennai, Tamil Nadu 600036";
+  LatLng destinationLocation = const LatLng(12.995740, 80.210297);
+  String destinationAddress =
+      "Airport Rd, Meenambakkam, Chennai, Tamil Nadu 600027";
   List<LatLng> polylineCoordinates = [];
-
-  @override
-  void initState() {
-    super.initState();
-    getPolyPoint();
-  }
-
-  void getPolyPoint() async {
-    PolylinePoints polylinePoints = PolylinePoints();
-
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      AppConstants.mapsKey,
-      PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
-      PointLatLng(destinationLocation.latitude, destinationLocation.longitude),
-    );
-
-    if (result.points.isNotEmpty) {
-      for (var point in result.points) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      }
-    }
-    setState(() {});
-  }
-
-  locatePosition() async {
-    Position position = await Geolocator.getCurrentPosition();
-    LatLng ltlnPosition = LatLng(position.latitude, position.longitude);
-    cameraPosition = CameraPosition(target: ltlnPosition, zoom: 13.5);
-    _newGoogleMapController
-        .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-
-    String address =
-        await HelperMethods.searchCoordinatesAddress(position, context);
-  }
-
-  void displayRideDetailContainer() async {
-    await getPlaceDirection();
-
-    setState(() {
-      riderDetailPanel = 300;
-      locationPanel = 0;
-    });
-  }
-
-  Future<void> getPlaceDirection() async {
-    var initialPosition;
-    var dropoffPosition;
-
-    var picupkLatLng =
-        LatLng(initialPosition!.latitude, initialPosition.longitude);
-
-    var dropOffLatLng =
-        LatLng(dropoffPosition!.latitude, dropoffPosition.longitude);
-
-    DirectionDetails details = await HelperMethods.obtainPlaceDirectionDetails(
-        picupkLatLng, dropOffLatLng);
-
-    setState(() {
-      tripDirectionDetails = details;
-    });
-
-
-    PolylinePoints polylinePoints = PolylinePoints();
-    List<PointLatLng> decodePolyLinePointsResult =
-        polylinePoints.decodePolyline(details.encodedPoints);
-
-    pLineCoordinates.clear();
-
-    if (decodePolyLinePointsResult.isNotEmpty) {
-      decodePolyLinePointsResult.forEach((element) {
-        pLineCoordinates.add(LatLng(element.latitude, element.longitude));
-      });
-    }
-
-    polyLineSet.clear();
-    Polyline polyline = Polyline(
-      polylineId: const PolylineId('PolyLineId'),
-      color: Colors.amber,
-      jointType: JointType.round,
-      points: pLineCoordinates,
-      width: 5,
-      startCap: Cap.roundCap,
-      endCap: Cap.roundCap,
-      geodesic: true,
-    );
-
-    setState(() {
-      polyLineSet.add(polyline);
-    });
-
-    LatLngBounds latLngBounds;
-    if (picupkLatLng.latitude > dropOffLatLng.latitude &&
-        picupkLatLng.longitude > dropOffLatLng.longitude) {
-      latLngBounds =
-          LatLngBounds(southwest: dropOffLatLng, northeast: picupkLatLng);
-    } else if (picupkLatLng.longitude > dropOffLatLng.longitude) {
-      latLngBounds = LatLngBounds(
-        southwest: LatLng(picupkLatLng.latitude, dropOffLatLng.longitude),
-        northeast: LatLng(dropOffLatLng.latitude, picupkLatLng.longitude),
-      );
-    } else if (picupkLatLng.latitude > dropOffLatLng.latitude) {
-      latLngBounds = LatLngBounds(
-        southwest: LatLng(dropOffLatLng.latitude, picupkLatLng.longitude),
-        northeast: LatLng(picupkLatLng.latitude, dropOffLatLng.longitude),
-      );
-    } else {
-      latLngBounds =
-          LatLngBounds(southwest: picupkLatLng, northeast: dropOffLatLng);
-    }
-
-    _newGoogleMapController
-        .animateCamera(CameraUpdate.newLatLngBounds(latLngBounds, 70));
-
-    Marker pickUpMarker = Marker(
-        markerId: const MarkerId("PickUpId"),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-        infoWindow: InfoWindow(
-          title: initialPosition.placeFormatAddress,
-          snippet: "My Location",
-        ),
-        position: picupkLatLng);
-
-    Marker dropOffMarker = Marker(
-        markerId: const MarkerId("dropOffMarker"),
-        icon: BitmapDescriptor.defaultMarkerWithHue(
-          BitmapDescriptor.hueRed,
-        ),
-        infoWindow: InfoWindow(
-          title: dropoffPosition.placeFormatAddress,
-          snippet: "Drop Off Location",
-        ),
-        position: dropOffLatLng);
-
-    setState(() {
-      markers.add(dropOffMarker);
-      markers.add(pickUpMarker);
-    });
-
-    Circle pickUpCircle = Circle(
-      fillColor: Colors.amber,
-      radius: 12,
-      circleId: const CircleId("PickupCircle"),
-      center: picupkLatLng,
-      strokeWidth: 4,
-      strokeColor: Colors.amber,
-    );
-
-    Circle dropOffCircle = Circle(
-      fillColor: Colors.pink.shade300,
-      radius: 12,
-      circleId: const CircleId("dropOffCircle"),
-      center: dropOffLatLng,
-      strokeWidth: 4,
-      strokeColor: Colors.pink.shade300,
-    );
-
-    setState(() {
-      circle.add(pickUpCircle);
-      circle.add(dropOffCircle);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -227,7 +62,7 @@ class _GiveRideState extends State<GiveRide> {
                 _mapController.complete(cont);
                 _newGoogleMapController = cont;
 
-                await locatePosition();
+                await locateSourcePosition();
               },
             ),
             Positioned(
@@ -255,15 +90,7 @@ class _GiveRideState extends State<GiveRide> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        onTap: () async {
-                          var res = await Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => const SearchScreen()));
-
-                          if (res == "ObtainDirections") {
-                            displayRideDetailContainer();
-                          }
-                        },
+                        onTap: () => locateDestinationPosition(),
                         child: Container(
                           decoration: BoxDecoration(
                             color: ColorShades.backGroundBlack,
@@ -294,13 +121,14 @@ class _GiveRideState extends State<GiveRide> {
                       Row(
                         children: [
                           const Icon(
-                            Icons.home,
+                            Icons.my_location_rounded,
+                            color: ColorShades.googleRed,
                             size: 20,
                           ),
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              "Himalaya Mess Rd, Indian Institute Of Technology, Chennai, Tamil Nadu 600036",
+                              sourceAddress,
                               style: Theme.of(context).textTheme.h5,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -311,14 +139,12 @@ class _GiveRideState extends State<GiveRide> {
                       const SizedBox(height: 16.0),
                       Row(
                         children: [
-                          const Icon(
-                            Icons.location_on,
-                            size: 20,
-                          ),
+                          const Icon(Icons.near_me_rounded,
+                              color: ColorShades.googleGreen, size: 20),
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              "Airport Rd, Meenambakkam, Chennai, Tamil Nadu 600027",
+                              destinationAddress,
                               style: Theme.of(context).textTheme.h5,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -333,9 +159,7 @@ class _GiveRideState extends State<GiveRide> {
                           FloatingActionButton(
                             mini: true,
                             backgroundColor: ColorShades.blue,
-                            onPressed: () {
-                              Fluttertoast.showToast(msg: "ready to go");
-                            },
+                            onPressed: () async {},
                             child: const Icon(
                               Icons.forward,
                               color: Colors.white,
@@ -352,5 +176,226 @@ class _GiveRideState extends State<GiveRide> {
         ),
       ),
     );
+  }
+
+  // for getting the current location of the user
+  locateSourcePosition() async {
+    Position position = await Geolocator.getCurrentPosition();
+    sourceLocation = LatLng(position.latitude, position.longitude);
+    cameraPosition = CameraPosition(target: sourceLocation, zoom: 13.5);
+    _newGoogleMapController
+        .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    setState(() async {
+      sourceAddress = await searchCoordinatesAddress(position);
+    });
+  }
+
+  // for getting the destination location of the user
+  locateDestinationPosition() async {
+    Prediction p = await PlacesAutocomplete.show(
+          context: context,
+          apiKey: AppConstants.mapsKey,
+          mode: Mode.overlay,
+          types: ['(regions)'],
+          // mode: Mode.fullscreen,
+          language: "en",
+          components: [Component(Component.country, "in")],
+        ) ??
+        Prediction();
+    PlacesDetailsResponse detail =
+        await GoogleMapsPlaces(apiKey: AppConstants.mapsKey)
+            .getDetailsByPlaceId(p.placeId ?? "");
+    double lat = detail.result.geometry?.location.lat ?? 0.0;
+    double lng = detail.result.geometry?.location.lng ?? 0.0;
+    destinationLocation = LatLng(lat, lng);
+    setState(() async {
+      destinationAddress = await searchCoordinatesAddress(Position(
+          longitude: destinationLocation.longitude,
+          latitude: destinationLocation.latitude,
+          timestamp: null,
+          accuracy: 1.0,
+          altitude: 1.0,
+          heading: 1.0,
+          speed: 1.0,
+          speedAccuracy: 1.0));
+    });
+  }
+
+  // for getting current location from latitude and longitude
+  static Future<String> searchCoordinatesAddress(Position position) async {
+    String placeAddress = '';
+    String url =
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude},${position.longitude}&key=${AppConstants.mapsKey}';
+    var response = await RequestHelper.getRequest(url);
+    // print("placeAddress: $response");
+
+    if (response != "Error") {
+      placeAddress = response["results"][0]['formatted_address'];
+      final placeName =
+          response["results"][0]['address_components'][3]['long_name'];
+      final placeId = response["results"][0]['place_id'];
+      Address address = Address(
+        placeAddress,
+        placeName,
+        placeId,
+        position.latitude,
+        position.longitude,
+      );
+    }
+    return placeAddress;
+  }
+
+  // for getting polyline from source to destination
+  void getPolyPoint() async {
+    PolylinePoints polylinePoints = PolylinePoints();
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      AppConstants.mapsKey,
+      PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
+      PointLatLng(destinationLocation.latitude, destinationLocation.longitude),
+    );
+    if (result.points.isNotEmpty) {
+      for (var point in result.points) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      }
+    }
+    setState(() {});
+  }
+
+  // for getting the direction from source to destination
+  static Future<dynamic> obtainPlaceDirectionDetails(
+      LatLng initialPosition, LatLng finalPosition) async {
+    String directionUrl =
+        "https://maps.googleapis.com/maps/api/directions/json?origin=${initialPosition.latitude},${initialPosition.longitude}&destination=${finalPosition.latitude},${finalPosition.longitude}&key=${AppConstants.mapsKey}";
+    var res = await RequestHelper.getRequest(directionUrl);
+    if (res == "Error") {
+      return null;
+    }
+    var distanceText = res['routes'][0]['legs'][0]['distance']['text'];
+    var distanceValue = res['routes'][0]['legs'][0]['distance']['value'];
+    var durationText = res['routes'][0]['legs'][0]['duration']['text'];
+    var durationValue = res['routes'][0]['legs'][0]['duration']['value'];
+    var encodedPoints = res['routes'][0]['overview_polyline']['points'];
+    DirectionDetails details = DirectionDetails(distanceText, distanceValue,
+        durationText, durationValue, encodedPoints);
+
+    return details;
+  }
+
+  // for getting the direction from source to destination and adding points on the map
+  Future<void> getPlaceDirection() async {
+    var initialPosition = sourceLocation;
+    var dropOffPosition = destinationLocation;
+
+    var pickUpLatLng =
+        LatLng(initialPosition.latitude, initialPosition.longitude);
+
+    var dropOffLatLng =
+        LatLng(dropOffPosition.latitude, dropOffPosition.longitude);
+
+    DirectionDetails details =
+        await obtainPlaceDirectionDetails(pickUpLatLng, dropOffLatLng);
+
+    setState(() {
+      tripDirectionDetails = details;
+    });
+
+    PolylinePoints polylinePoints = PolylinePoints();
+    List<PointLatLng> decodePolyLinePointsResult =
+        polylinePoints.decodePolyline(details.encodedPoints);
+
+    pLineCoordinates.clear();
+
+    if (decodePolyLinePointsResult.isNotEmpty) {
+      for (var element in decodePolyLinePointsResult) {
+        pLineCoordinates.add(LatLng(element.latitude, element.longitude));
+      }
+    }
+
+    polyLineSet.clear();
+    Polyline polyline = Polyline(
+      polylineId: const PolylineId('PolyLineId'),
+      color: Colors.amber,
+      jointType: JointType.round,
+      points: pLineCoordinates,
+      width: 5,
+      startCap: Cap.roundCap,
+      endCap: Cap.roundCap,
+      geodesic: true,
+    );
+
+    setState(() {
+      polyLineSet.add(polyline);
+    });
+
+    LatLngBounds latLngBounds;
+    if (pickUpLatLng.latitude > dropOffLatLng.latitude &&
+        pickUpLatLng.longitude > dropOffLatLng.longitude) {
+      latLngBounds =
+          LatLngBounds(southwest: dropOffLatLng, northeast: pickUpLatLng);
+    } else if (pickUpLatLng.longitude > dropOffLatLng.longitude) {
+      latLngBounds = LatLngBounds(
+        southwest: LatLng(pickUpLatLng.latitude, dropOffLatLng.longitude),
+        northeast: LatLng(dropOffLatLng.latitude, pickUpLatLng.longitude),
+      );
+    } else if (pickUpLatLng.latitude > dropOffLatLng.latitude) {
+      latLngBounds = LatLngBounds(
+        southwest: LatLng(dropOffLatLng.latitude, pickUpLatLng.longitude),
+        northeast: LatLng(pickUpLatLng.latitude, dropOffLatLng.longitude),
+      );
+    } else {
+      latLngBounds =
+          LatLngBounds(southwest: pickUpLatLng, northeast: dropOffLatLng);
+    }
+
+    _newGoogleMapController
+        .animateCamera(CameraUpdate.newLatLngBounds(latLngBounds, 70));
+
+    // Marker pickUpMarker = Marker(
+    //     markerId: const MarkerId("PickUpId"),
+    //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+    //     infoWindow: InfoWindow(
+    //       title: initialPosition.placeFormatAddress,
+    //       snippet: "My Location",
+    //     ),
+    //     position: pickUpLatLng);
+    //
+    // Marker dropOffMarker = Marker(
+    //     markerId: const MarkerId("dropOffMarker"),
+    //     icon: BitmapDescriptor.defaultMarkerWithHue(
+    //       BitmapDescriptor.hueRed,
+    //     ),
+    //     infoWindow: InfoWindow(
+    //       title: dropOffPosition.placeFormatAddress,
+    //       snippet: "Drop Off Location",
+    //     ),
+    //     position: dropOffLatLng);
+
+    // setState(() {
+    //   markers.add(dropOffMarker);
+    //   markers.add(pickUpMarker);
+    // });
+
+    Circle pickUpCircle = Circle(
+      fillColor: Colors.amber,
+      radius: 12,
+      circleId: const CircleId("PickupCircle"),
+      center: pickUpLatLng,
+      strokeWidth: 4,
+      strokeColor: Colors.amber,
+    );
+
+    Circle dropOffCircle = Circle(
+      fillColor: Colors.pink.shade300,
+      radius: 12,
+      circleId: const CircleId("dropOffCircle"),
+      center: dropOffLatLng,
+      strokeWidth: 4,
+      strokeColor: Colors.pink.shade300,
+    );
+
+    setState(() {
+      circle.add(pickUpCircle);
+      circle.add(dropOffCircle);
+    });
   }
 }

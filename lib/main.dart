@@ -21,7 +21,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await SharedPrefs().init();
-  String token =  await FirebaseAuth.instance.currentUser?.getIdToken() ?? '';
+  String token = await FirebaseAuth.instance.currentUser?.getIdToken() ?? '';
   SharedPrefs().authToken = token;
   // FirebaseAuth.instance.idTokenChanges().listen((token) {
   //   if (token != null) {

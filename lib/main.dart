@@ -6,8 +6,8 @@ import 'package:corporate_ride_sharing/screens/home/home_screen.dart';
 import 'package:corporate_ride_sharing/screens/login/mobile_screen.dart';
 import 'package:corporate_ride_sharing/screens/login/otp_screen.dart';
 import 'package:corporate_ride_sharing/screens/profile/user_profile.dart';
-import 'package:corporate_ride_sharing/screens/requestRide/request_ride.dart';
-import 'package:corporate_ride_sharing/screens/rideHistory/ride_history.dart';
+import 'package:corporate_ride_sharing/screens/requestRide/request_ride_home.dart';
+import 'package:corporate_ride_sharing/screens/rideHistory/past_trips.dart';
 import 'package:corporate_ride_sharing/screens/roleSelection/role_selection.dart';
 import 'package:corporate_ride_sharing/screens/space/space_screen.dart';
 import 'package:corporate_ride_sharing/screens/splash/splash_screen.dart';
@@ -23,11 +23,6 @@ void main() async {
   await SharedPrefs().init();
   String token = await FirebaseAuth.instance.currentUser?.getIdToken() ?? '';
   SharedPrefs().authToken = token;
-  // FirebaseAuth.instance.idTokenChanges().listen((token) {
-  //   if (token != null) {
-  //     SharedPrefs().authToken = token as String;
-  //   }
-  // });
   runApp(const MyApp());
 }
 
@@ -55,9 +50,9 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/role_selection': (context) => const RoleSelection(),
         '/user_profile': (context) => const UserProfile(),
-        '/request_ride': (context) => const RequestRide(),
+        '/request_ride': (context) => const RequestRideHome(),
         '/give_ride': (context) => const GiveRideHome(),
-        '/ride_history': (context) => const RideHistory(),
+        '/ride_history': (context) => const PastTrips(),
         '/account': (context) => const Account(),
         '/vehicle': (context) => const VehicleScreen(),
         '/share': (context) => const ShareScreen(),

@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 import '../utils/style.dart';
 
 animationDialog(BuildContext context,
-    {required AnimationController animationController}) {
+    {required AnimationController animationController, String jsonFileName = "login_success"}) {
   final double screenHeight = MediaQuery.of(context).size.height;
   final double screenWidth = MediaQuery.of(context).size.width;
   showGeneralDialog(
@@ -19,7 +19,7 @@ animationDialog(BuildContext context,
           color: ColorShades.backGroundBlack,
         ),
         child: Lottie.asset(
-          "assets/animations/login_success.json",
+          "assets/animations/$jsonFileName.json",
           height: screenHeight * 0.25,
           controller: animationController,
           onLoaded: (composition) {

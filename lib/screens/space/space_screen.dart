@@ -1,7 +1,8 @@
 import 'package:corporate_ride_sharing/screens/Account/account.dart';
 import 'package:corporate_ride_sharing/screens/giveRide/give_ride_home.dart';
-import 'package:corporate_ride_sharing/screens/requestRide/request_ride.dart';
-import 'package:corporate_ride_sharing/screens/rideHistory/ride_history.dart';
+import 'package:corporate_ride_sharing/screens/requestRide/request_ride_home.dart';
+import 'package:corporate_ride_sharing/screens/rideHistory/history_rides.dart';
+import 'package:corporate_ride_sharing/screens/rideHistory/past_trips.dart';
 import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
 import 'package:corporate_ride_sharing/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -56,15 +57,15 @@ class _SpaceScreenState extends State<SpaceScreen>
       },
       child: Scaffold(
         body: _currentIndex == 0
-            ? const RequestRide()
+            ? const RequestRideHome()
             : _currentIndex == 1
-                ? const GiveRideHome()
-                : _currentIndex == 2
-                    ? const RideHistory()
-                    : const Account(),
+            ? const GiveRideHome()
+            : _currentIndex == 2
+            ? const HistoryRides()
+            : const Account(),
         bottomNavigationBar: NavigationBarTheme(
           data: const NavigationBarThemeData(
-            indicatorColor: ColorShades.backGroundGrey,
+              indicatorColor: ColorShades.backGroundGrey
           ),
           child: NavigationBar(
             backgroundColor: ColorShades.backGroundBlack,
@@ -87,7 +88,7 @@ class _SpaceScreenState extends State<SpaceScreen>
                   color: ColorShades.blue,
                 ),
                 icon: Icon(Icons.directions_car_outlined),
-                label: "ride",
+                label: "offer",
               ),
               NavigationDestination(
                 selectedIcon: Icon(
@@ -95,7 +96,7 @@ class _SpaceScreenState extends State<SpaceScreen>
                   color: ColorShades.blue,
                 ),
                 icon: Icon(Icons.history_outlined),
-                label: "history",
+                label: "rides",
               ),
               NavigationDestination(
                 selectedIcon: Icon(

@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:corporate_ride_sharing/components/reusable_widgets.dart';
-import 'package:corporate_ride_sharing/models/offer_rides_model.dart';
+import 'package:corporate_ride_sharing/models/request_rides_model.dart';
+import 'package:corporate_ride_sharing/screens/requestRide/request_ride.dart';
 import 'package:corporate_ride_sharing/utils/sharedPrefs/shared_prefs.dart';
 import 'package:corporate_ride_sharing/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -15,16 +16,15 @@ import '../../Models/address_model.dart';
 import '../../Models/direction_details.dart';
 import '../../services/requestHelper.dart';
 import '../../utils/constants.dart';
-import 'give_ride.dart';
 
-class GiveRideHome extends StatefulWidget {
-  const GiveRideHome({Key? key}) : super(key: key);
+class RequestRideHome extends StatefulWidget {
+  const RequestRideHome({Key? key}) : super(key: key);
 
   @override
-  State<GiveRideHome> createState() => _GiveRideHomeState();
+  State<RequestRideHome> createState() => _RequestRideHomeState();
 }
 
-class _GiveRideHomeState extends State<GiveRideHome> {
+class _RequestRideHomeState extends State<RequestRideHome> {
   final Completer<GoogleMapController> _mapController = Completer();
   late GoogleMapController _newGoogleMapController;
 
@@ -172,12 +172,8 @@ class _GiveRideHomeState extends State<GiveRideHome> {
                               // print("message is ${response.message}");
                               // print("rideoffer is ${response.rideOffer[0].boardingPoint?.coordinates[0]}");
 
-                              RideOffer rideOffer = RideOffer(
+                              RideRequest requestRide = RideRequest(
                                 rideStatus: "YET_TO_START",
-                                currentPoint: Point(coordinates: [
-                                  sourceLocation.longitude,
-                                  sourceLocation.longitude
-                                ]),
                                 boardingPoint: Point(coordinates: [
                                   sourceLocation.longitude,
                                   sourceLocation.longitude
@@ -195,22 +191,10 @@ class _GiveRideHomeState extends State<GiveRideHome> {
                               //   width * 0.8,
                               //   rideOffer: rideOffer,
                               // );
-
-                              // if(SharedPrefs().rideOfferStatus == "posted"){
-                              //   ReusableWidgets().showToast("your last ride is not finished yet");
-                              // }
-                              // else{
-                              //   Navigator.of(context).push(
-                              //     MaterialPageRoute(
-                              //       builder: (context) =>
-                              //           GiveRide(rideOffer: rideOffer),
-                              //     ),
-                              //   );
-                              // }
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      GiveRide(rideOffer: rideOffer),
+                                      RequestRide(rideRequest: requestRide),
                                 ),
                               );
                             },
@@ -222,6 +206,72 @@ class _GiveRideHomeState extends State<GiveRideHome> {
                         ],
                       ),
                     ],
+                  ),
+                ),
+              ),
+            ),
+            Visibility(
+              visible: SharedPrefs().rideRequestStatus == "posted",
+              child: Positioned(
+                top: 18,
+                left: 18,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ColorShades.backGroundGrey.withOpacity(0.6),
+                    borderRadius: const BorderRadius.all(Radius.circular(13)),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 16,
+                        color: Colors.black.withOpacity(0.5),
+                        offset: const Offset(0.7, 0.7),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(6),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        FloatingActionButton(
+                          mini: true,
+                          backgroundColor: ColorShades.googleGreen,
+                          onPressed: () async {
+                            // var response = await OfferRidesService().getRideOffers();
+                            // print("response is $response");
+                            // print("message is ${response.message}");
+                            // print("rideoffer is ${response.rideOffer[0].boardingPoint?.coordinates[0]}");
+
+                            RideRequest requestRide = RideRequest(
+                              rideStatus: "YET_TO_START",
+                              boardingPoint: Point(coordinates: [
+                                sourceLocation.longitude,
+                                sourceLocation.longitude
+                              ]),
+                              destinationPoint: Point(coordinates: [
+                                destinationLocation.longitude,
+                                destinationLocation.longitude
+                              ]),
+                              userId: SharedPrefs().userId,
+                            );
+
+                            // ReusableWidgets().noOfSeatsAlertDialogue(
+                            //   context,
+                            //   height * 0.1,
+                            //   width * 0.8,
+                            //   rideOffer: rideOffer,
+                            // );
+                            Navigator.of(context)
+                                .push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        RequestRide(rideRequest: requestRide),
+                                  ),
+                                )
+                                .then((value) => setState(() {}));
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

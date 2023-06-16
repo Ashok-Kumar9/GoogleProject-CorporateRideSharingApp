@@ -2,14 +2,14 @@ import 'package:corporate_ride_sharing/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class RideHistory extends StatefulWidget {
-  const RideHistory({Key? key}) : super(key: key);
+class PastTrips extends StatefulWidget {
+  const PastTrips({Key? key}) : super(key: key);
 
   @override
-  State<RideHistory> createState() => _RideHistoryState();
+  State<PastTrips> createState() => _PastTripsState();
 }
 
-class _RideHistoryState extends State<RideHistory> {
+class _PastTripsState extends State<PastTrips> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -18,11 +18,7 @@ class _RideHistoryState extends State<RideHistory> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ColorShades.backGroundGrey,
-        appBar: AppBar(
-          backgroundColor: ColorShades.backGroundBlack,
-          automaticallyImplyLeading: false,
-          title: Text("ride history", style: Theme.of(context).textTheme.h3),
-        ),
+
         body: ListView.builder(
             itemCount: 3,
             physics: const BouncingScrollPhysics(),

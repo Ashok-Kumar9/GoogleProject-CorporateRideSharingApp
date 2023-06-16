@@ -8,6 +8,8 @@ class PrefsConstants {
   static const String userRole = 'userRole';
   static const String userId = 'userID';
   static const String vehicleId = 'vehicleId';
+  static const String rideOfferStatus = 'rideOfferStatus';
+  static const String rideRequestStatus = 'rideRequestStatus';
 }
 
 class SharedPrefs {
@@ -64,4 +66,16 @@ class SharedPrefs {
 
   set vehicleId(String value) =>
       _sharedPrefs.setString(PrefsConstants.vehicleId, value);
+
+  String get rideOfferStatus => _sharedPrefs.getString(PrefsConstants.rideOfferStatus) ?? "not_posted";
+  //posted
+
+  set rideOfferStatus(String value) =>
+      _sharedPrefs.setString(PrefsConstants.rideOfferStatus, value);
+
+  String get rideRequestStatus => _sharedPrefs.getString(PrefsConstants.rideRequestStatus) ?? "not_posted";
+  //posted
+
+  set rideRequestStatus(String value) =>
+      _sharedPrefs.setString(PrefsConstants.rideRequestStatus, value);
 }
